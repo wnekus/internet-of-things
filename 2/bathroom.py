@@ -18,17 +18,17 @@ def main():
     lamps = [["Bathroom main lamp", "lamp", 1, False, led1],
              ["Bathroom mirror lamp", "lamp", 2, False, led2]]
 
-    def button1_pressed():
+    def switch_bathroom_lamp():
         change_lamp_state(lamps[0])
 
-    def button2_pressed():
+    def switch_bathroom_mirror_lamp():
         change_lamp_state(lamps[1])
 
     button1 = Button(11)
-    button1.when_pressed = button1_pressed
+    button1.when_pressed = switch_bathroom_lamp
 
     button2 = Button(12)
-    button2.when_pressed = button2_pressed
+    button2.when_pressed = switch_bathroom_mirror_lamp
 
     while True:
         command = sock.recv(10240)

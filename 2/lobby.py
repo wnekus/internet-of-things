@@ -13,15 +13,16 @@ circuit = TkCircuit(set_copernicus_settings("Lobby"))
 
 global_switch_state = False
 
+
 @circuit.run
 def main():
     led = LED(21)
     lamps = [["Lobby lamp", "lamp", 1, False, led]]
 
-    def button1_pressed():
+    def switch_lobby_lamp():
         change_lamp_state(lamps[0])
 
-    def button2_pressed():
+    def global_switch():
         global global_switch_state
         if global_switch_state:
             line = "*;*;*;*;off"
@@ -32,10 +33,10 @@ def main():
         sock.sendto(line.encode('utf-8'), (MCAST_GRP, MCAST_PORT))
 
     button1 = Button(11)
-    button1.when_pressed = button1_pressed
+    button1.when_pressed = switch_lobby_lamp
 
     button2 = Button(12)
-    button2.when_pressed = button2_pressed
+    button2.when_pressed = global_switch
 
     while True:
         command = sock.recv(10240)

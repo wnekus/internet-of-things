@@ -16,18 +16,18 @@ def main():
     led = LED(21)
     lamps = [["Livin room lamp", "lamp", 1, False, led]]
 
-    def button1_pressed():
+    def switch_living_room_lamp():
         change_lamp_state(lamps[0])
 
-    def button2_pressed():
+    def switch_kitchen_lamp():
         line = "f1;kitchen;lamp;1;change"
         sock.sendto(line.encode('utf-8'), (MCAST_GRP, MCAST_PORT))
 
     button1 = Button(11)
-    button1.when_pressed = button1_pressed
+    button1.when_pressed = switch_living_room_lamp
 
     button2 = Button(12)
-    button2.when_pressed = button2_pressed
+    button2.when_pressed = switch_kitchen_lamp
 
     while True:
         command = sock.recv(10240)
